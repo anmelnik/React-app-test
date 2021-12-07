@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 
-const Carts = ({data}) => {
+const AddFilterCats = ({dataUser}) => {
     return (
         <div className="carts">
-        {data &&
-          data.map((item, index) => {
+        {dataUser &&
+          dataUser.map((item, index) => {
              return (
               <div className="cart" key={index}>
                 <div className="details">
@@ -14,7 +14,7 @@ const Carts = ({data}) => {
                   <p>{item.gender}</p>
                   <p>{item.email}</p>
                   <p>{item.dob.date.slice(0, 10)}</p>
-                  {/* <p>{item.nat}</p> */}
+                  <p>{item.nat}</p>
                 </div>
               </div> 
             ); 
@@ -25,4 +25,4 @@ const Carts = ({data}) => {
     
 }
 
-export default Carts;
+export default AddFilterCats;

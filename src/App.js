@@ -2,19 +2,20 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
 import Carts from './Cart';
+import AddFilterCats from './AddFilterCats';
 
 
 function App() {
-  // eslint-disable-next-line
+
   const [data, setData] = useState(null);
+  const [dataUser, setDataUser] = useState('');
   const [genders, setGenders] = useState('');
   const [national, setNational] = useState('');
-
-
-  let url = "https://randomuser.me/api/?results=15&seed=abc&inc=gender,name,email,picture,dob,id,nat&nat=gb"
+  
+  // let url = "https://randomuser.me/api/?results=15&seed=abc&inc=gender,name,email,picture,dob,id,nat&nat=gb"
 
   useEffect(() => {
-    axios.get(url)
+    axios.get('https://randomuser.me/api/?results=15&seed=abc&inc=gender,name,email,picture,dob,id=gb')
       .then(response => setData(response.data.results))
       .catch(error => console.log(error))
   }, [])
@@ -31,18 +32,17 @@ function App() {
   useEffect(() => {
     localStorage.setItem('genders', JSON.stringify(genders));
     localStorage.setItem('national', JSON.stringify(national));
-  });
-
+  }, []);
 
   const fetchData = async () => {
-    const response = await axios.get(url)
+    const response = await axios.get('https://randomuser.me/api/?results=100&seed=abc&inc=gender,name,email,picture,dob,id,nat&nat=gb')
     const dataSort = JSON.parse(JSON.stringify(response.data.results))
-
-
+    
+    let newDataSort = dataSort.slice(15, 45)
 
     if (!genders || !national) {
       alert("Please enter gender and nationality!")
-    } let arrtDataSort = dataSort.filter(item => {
+    } let arrtDataSort = newDataSort.filter(item => {
       if (item.gender === genders && item.nat === national) {
         return item
       }
@@ -50,31 +50,8 @@ function App() {
         return item
       }
     })
-    setData(arrtDataSort)
+    setDataUser(arrtDataSort)
   };
-
-  const AddFilterCats = ({ data }) => {
-    return (
-      <div className="books">
-        {data &&
-          data.map((item, index) => {
-            return (
-              <div className="book" key={index}>
-                <div className="details">
-                  <img src={item.picture.large} />
-                  <p>{`${item.name.first} ${item.name.last}`}</p>
-                  <p>{item.gender}</p>
-                  <p>{item.email}</p>
-                  <p>{item.dob.date.slice(0, 10)}</p>
-                  <p>{item.nat}</p>
-                </div>
-              </div>
-            );
-          })}
-      </div>
-
-    )
-  }
 
   return (
     <div className="App">
@@ -114,7 +91,8 @@ function App() {
         Apply filters
       </button>
       <Carts data={data} />
-      {/* <AddFilterCats /> */}
+      <hr/>
+      <AddFilterCats dataUser={dataUser} />
     </div>
   );
 }

@@ -1,7 +1,9 @@
 * {
   box-sizing: border-box;
 }
-
+body {
+  margin: 0 auto;
+}
 .App {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
@@ -25,12 +27,12 @@
   background-color: rgb(40, 209, 209);
 }
 
-.books {
+.carts {
   display: flex;
   flex-wrap: wrap;
 }
 
-.book {
+.cart {
   background: #fff;
   position: relative;
   border-radius: 5px;
@@ -40,16 +42,15 @@
   color: #333;
   flex-basis: width;
   border: 1px solid #333;
-  /* background-color: rgb(165, 230, 230); */
 }
 
-.book h3 {
+.cart h3 {
   margin-bottom: 5px;
   font-size: 1rem;
   opacity: 0.7;
 }
 
-.book h2 {
+.cart h2 {
   margin-top: 5px;
   margin-bottom: 30px;
   font-size: 1.5rem;
